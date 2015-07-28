@@ -51,22 +51,37 @@ public class EciLogin extends HttpServlet {
   }
 
   protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
-    String username = req.getParameter( "username" );
     Cookie cookie = new Cookie( "X-Auth-Token", "" );
     cookie.setMaxAge( 0 );
-    if( username == null || username.isEmpty() ) {
+    String username = getAuthenticatedUsername( req );
+    String referrer = req.getParameter( "referrer" );
+    if( username == null ) {
       resp.addCookie( cookie );
-      resp.sendRedirect( "/login" );
+      if( referrer != null ) {
+        resp.sendRedirect( "/login?referrer=" + Util.urlEncode( referrer ) );
+      } else {
+        resp.sendRedirect( "/login" );
+      }
     } else {
       cookie.setValue( username );
       cookie.setMaxAge( 120 );
       resp.addCookie( cookie );
-      String referrer = req.getParameter( "referrer" );
       if( referrer == null || referrer.isEmpty() ) {
         referrer = "/eci";
       }
       resp.sendRedirect( referrer );
     }
+  }
+
+  private String getAuthenticatedUsername( HttpServletRequest req ) {
+    String username = req.getParameter( "username" );
+    String password = req.getParameter( "password" );
+    if( username == null || username.isEmpty() || password == null || !password.equals( username + "-password" ) ) {
+      return null;
+    } else {
+      return username;
+    }
+
   }
 
 }
