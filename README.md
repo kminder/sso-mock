@@ -13,4 +13,4 @@ Any username will authentiate but the password must "-password" appended to the 
 
 For testing purposes you can also "logout" by accessing http://localhost:2222/logout
 
-
+The interesting part of all of this is that the source code illustrates three difference integration frameworks: JEE servlet filters, Spring Security and Hadoop Authentication Handlers.
