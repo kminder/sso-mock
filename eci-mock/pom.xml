@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.hortonworks.examples</groupId>
+        <artifactId>sso-mock</artifactId>
+        <version>0.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>eci-mock</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hortonworks.examples</groupId>
+            <artifactId>sso-poc-cmn</artifactId>
+            <version>0.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.7</version>
+        </dependency>
+    </dependencies>
+
+    <!-- mvn jetty:run -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.8.v20150217</version>
+                <configuration>
+                    <jettyXml>${project.basedir}/target/classes/jetty.xml,${project.basedir}/target/classes/jetty-http.xml</jettyXml>
+                    <!-- <jettyXml>jetty.xml,jetty-http.xml,jetty-ssl.xml,jetty-https.xml</jettyXml> -->
+                    <webApp>
+                        <contextPath>/</contextPath>
+                        <descriptor>${project.basedir}/target/classes/web.xml</descriptor>
+                        <!--
+                        <jettyEnvXml>${project.basedir}/jetty-env.xml</jettyEnvXml>
+                        -->
+                    </webApp>
+                    <webAppSourceDirectory>${project.basedir}/target/classes</webAppSourceDirectory>
+                    <classesDirectory>${project.basedir}/target/classes</classesDirectory>
+                    <!--
+                    <scanTargets>
+                        <scanTarget>src/main/resources</scanTarget>
+                    </scanTargets>
+                    <scanTargetPatterns>
+                        <scanTargetPattern>
+                            <directory>src/main/resources</directory>
+                            <includes>
+                                <include>**/*.xml</include>
+                                <include>**/*.properties</include>
+                            </includes>
+                            <excludes>
+                            </excludes>
+                        </scanTargetPattern>
+                    </scanTargetPatterns>
+                    -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

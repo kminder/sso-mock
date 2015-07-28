@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <servlet-class>com.hortonworks.example.eci.EciLogin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <url-pattern>/login/*</url-pattern>
+        <servlet-name>login</servlet-name>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.hortonworks.example.eci.EciLogout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <url-pattern>/logout/*</url-pattern>
+        <servlet-name>logout</servlet-name>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ui</servlet-name>
+        <servlet-class>com.hortonworks.example.eci.EciMock</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <url-pattern>/eci/*</url-pattern>
+        <servlet-name>ui</servlet-name>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>sso</filter-name>
+        <filter-class>com.hortonworks.example.eci.EciSsoFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <url-pattern>/eci/*</url-pattern>
+        <filter-name>sso</filter-name>
+    </filter-mapping>
+
+</web-app>
